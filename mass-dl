@@ -1,0 +1,23 @@
+#!/bin/sh
+CMD_BASE=$(dirname $0)
+
+cat dlist | 
+while read a; do 
+	DL_SITE=$(echo $a | awk 'BEGIN { FS="/"} { print $3 }' | sed -e 's/^www.//')
+	echo Downloading $DL_SITE ..
+	if [ "$DL_SITE" = "motherless.com" ]; then
+		$CMD_BASE/dl-motherless "$a"
+	elif [ "$DL_SITE" = "youporn.com" ]; then
+		$CMD_BASE/dl-youporn "$a"
+	elif [ "$DL_SITE" = "redtube.com" ]; then
+		$CMD_BASE/dl-redtube "$a"
+	elif [ "$DL_SITE" = "brandibelle.com" ]; then
+		$CMD_BASE/dl-brandibelle "$a"
+	elif [ "$DL_SITE" = "tube8.com" ]; then
+		$CMD_BASE/dl-tube8 "$a"
+	elif [ "$DL_SITE" = "narutoget.com" ]; then
+		$CMD_BASE/dl-narutoget "$a"
+	else 
+		wget -c "$a"
+	fi
+done

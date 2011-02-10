@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DL_FILE=tube8_$(echo "$1" | awk 'BEGIN { FS="/" } { print $6 }').flv
+DL_URL=$(curl "$1" -b "age_check=1" | grep -e "save=1" | head -n 1 | awk 'BEGIN { FS="[\"]"} { print $2 }')
+
+wget -c "$DL_URL" -O "$DL_FILE"

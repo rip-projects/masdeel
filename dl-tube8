@@ -1,0 +1,6 @@
+#!/bin/sh
+
+DL_FILE=tube8_$(echo "$1" | awk 'BEGIN { FS="/" } { print $6 }').flv
+DL_URL=$(curl "$1" | grep -e "videourl.*http.*flv" | awk 'BEGIN { FS="[\"]" } { print $2 }')
+
+wget -c "$DL_URL" -O "$DL_FILE"

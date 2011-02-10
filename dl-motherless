@@ -1,0 +1,11 @@
+#!/bin/sh
+
+
+DL_UA="Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Ubuntu/10.04 Chromium/7.0.517.44 Chrome/7.0.517.44 Safari/534.7" 
+DL_REFERER="http://motherless.com/flash/player.swf"
+DL_FILE=$(echo $1 | awk 'BEGIN { FS="/" } { print $4 }').flv
+DL_URLA=$(curl -A "$DL_UA" "$1" | grep flv | awk 'BEGIN { FS="[=&]" } { print $2 }')
+DL_URL="$DL_URLA?start=0&id=player&client=FLASH%20LNX%2010,1,102,65&version=4.1.60"
+echo Downloading \"$DL_URL\" to \"$DL_FILE\"
+#curl -A "$DL_UA" -e "$DL_REFERER" -C - "$DL_URL" > $DL_FILE
+wget -c --referer="$DL_REFERER" -U "$DL_UA" "$DL_URL" -O "$DL_FILE"

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+
+DL_UA="Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.7 (KHTML, like Gecko) Ubuntu/10.04 Chromium/7.0.517.44 Chrome/7.0.517.44 Safari/534.7" 
+DL_REFERER="http://motherless.com/flash/player.swf"
+DL_FILE=redtube_$(echo "$1" | awk 'BEGIN { FS="/" } { print $4 }').flv
+DL_URL=$(curl "$1" | grep -e "cdn.*flv" | head -n1 | awk 'BEGIN { FS="\"" } { print $4 }' | awk 'BEGIN { FS = "&" } { print $9 }' | awk 'BEGIN { FS="=" } { print $2 }' | sed -e's/%\([0-9A-F][0-9A-F]\)/\\\\\x\1/g' | xargs echo -e)
+
+wget -c -U "$DL_UA" "$DL_URL" -O "$DL_FILE"
+
