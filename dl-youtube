@@ -16,19 +16,8 @@ xargs echo -e; done | grep http |
 head -n1)
 
 
-DL_EXT=$(curl "$DL_URL" -I -L | grep -e "^Content-Type" | cut -d":" -f2 | cut -d"/" -f2 | sed -e 's/\(x-\)*\(.*\)/\2/g')
+DL_EXT=$(curl "$DL_URL" -I -L | grep -e "^Content-Type" | tail -n1 | cut -d":" -f2 | cut -d"/" -f2 | sed -e 's/\(x-\)*\(.*\)[\r\n]/\2/g')
 
-curl "$DL_URL" -L > "$DL_FILE.$DL_EXT"
+wget -c "$DL_URL" -L -O "$DL_FILE.$DL_EXT"
 
-#curl "$DL_URL" -I -L | grep "Content-Length" | cut -d":" -f2
-#while read a; do
-#	x=$(curl "$a" -I -L | grep "Content-Length" | cut -d":" -f2)
-#	echo $a $x
-#done 
-
-
-	
-#DL_URL="$DL_URLA?start=0&id=player&client=FLASH%20LNX%2010,1,102,65&version=4.1.60"
-#echo Downloading \"$DL_URL\" to \"$DL_FILE\"
-#curl -A "$DL_UA" -e "$DL_REFERER" -C - "$DL_URL" > $DL_FILE
 #wget -c --referer="$DL_REFERER" -U "$DL_UA" "$DL_URL" -O "$DL_FILE"

@@ -17,6 +17,8 @@ while read a; do
 		$CMD_BASE/dl-tube8 "$a"
 	elif [ "$DL_SITE" = "narutoget.com" ]; then
 		$CMD_BASE/dl-narutoget "$a"
+	elif [ "$DL_SITE" = "youtube.com" ]; then
+                $CMD_BASE/dl-youtube "$a"
 	else 
 		wget -c "$a"
 	fi
