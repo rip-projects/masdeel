@@ -23,6 +23,8 @@ while [ $a ]; do
 		$CMD_BASE/dl-narutoget "$a"
 	elif [ "$DL_SITE" = "youtube.com" ]; then
                $CMD_BASE/dl-youtube "$a"
+    elif [ "$DL_SITE" = "xvideos.com" ]; then
+               $CMD_BASE/dl-xvideos "$a"
 	else 
 		wget -c "$a"
 	fi
