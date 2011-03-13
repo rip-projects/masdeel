@@ -25,6 +25,16 @@ while [ $a ]; do
                $CMD_BASE/dl-youtube "$a"
     elif [ "$DL_SITE" = "xvideos.com" ]; then
                $CMD_BASE/dl-xvideos "$a"
+	elif [ "$DL_SITE" = "xhamster.com" ]; then
+               $CMD_BASE/dl-xhamster "$a"
+	elif [ "$DL_SITE" = "hardsextube.com" ]; then
+               $CMD_BASE/dl-hardsextube "$a"
+	elif [ "$DL_SITE" = "deviantclip.com" ]; then
+               $CMD_BASE/dl-deviantclip "$a"
+	elif [ "$DL_SITE" = "spankwire.com" ]; then
+               $CMD_BASE/dl-spankwire "$a"
+	elif [ "$DL_SITE" = "stileproject.com" ]; then
+               $CMD_BASE/dl-stileproject "$a"
 	else 
 		wget -c "$a"
 	fi
