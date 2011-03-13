@@ -1,10 +1,14 @@
 #!/bin/sh
 CMD_BASE=$(dirname $0)
 
-cat dlist | 
-while read a; do 
+#cat dlist | 
+#while read a; do 
+
+a=`head -n1 dlist`
+while [ $a ]; do
+
 	DL_SITE=$(echo $a | awk 'BEGIN { FS="/"} { print $3 }' | sed -e 's/^www.//')
-	echo Downloading $DL_SITE ..
+	echo Downloading $DL_SITE "("$a")"..
 	if [ "$DL_SITE" = "motherless.com" ]; then
 		$CMD_BASE/dl-motherless "$a"
 	elif [ "$DL_SITE" = "youporn.com" ]; then
@@ -18,8 +22,14 @@ while read a; do
 	elif [ "$DL_SITE" = "narutoget.com" ]; then
 		$CMD_BASE/dl-narutoget "$a"
 	elif [ "$DL_SITE" = "youtube.com" ]; then
-                $CMD_BASE/dl-youtube "$a"
+               $CMD_BASE/dl-youtube "$a"
 	else 
 		wget -c "$a"
 	fi
+	
+	echo $a >> dlist.bak
+	tail -n +2 dlist > dlist.new
+	cat dlist.new > dlist
+	rm -f dlist.new
+	a=`head -n1 dlist`
 done
