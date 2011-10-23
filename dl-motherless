@@ -5,6 +5,7 @@ DL_UA="Mozilla/5.0 (X11; U; Linux i686; en-US) AppleWebKit/534.7 (KHTML, like Ge
 DL_REFERER="http://motherless.com/flash/player.swf"
 DL_FILE=motherless_$(echo $1 | awk 'BEGIN { FS="/" } { print $4 }').flv
 DL_URLA=$(curl -A "$DL_UA" "$1" | grep flv | sed "s/^\(.*\)\(http.*\)'\(.*\)$/\2/")
+echo $DL_URLA;
 DL_URL="$DL_URLA?start=0&id=player&client=FLASH%20LNX%2010,1,102,65&version=4.1.60"
 echo Downloading \"$DL_URL\" to \"$DL_FILE\"
 #curl -A "$DL_UA" -e "$DL_REFERER" -C - "$DL_URL" > $DL_FILE
